@@ -42,8 +42,20 @@ export default function Form() {
     resolver: zodResolver(schema),
   })
 
-  const onSubmit = (data: Schema) => {
-    console.log(data)
+  const onSubmit = async (puzzleProperties: Schema) => {
+    try {
+      const response = await fetch("/puzzle", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(puzzleProperties),
+      })
+      const { data } = await response.json()
+      console.log(data)
+    } catch (error: any) {
+      console.error(error)
+    }
   }
 
   return (
