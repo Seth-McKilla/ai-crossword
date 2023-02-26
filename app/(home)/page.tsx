@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button"
 import {
   Select,
   SelectContent,
@@ -53,10 +54,16 @@ export default function HomePage() {
                 <SelectItem value="whimsical">Whimsical</SelectItem>
               </SelectContent>
             </Select>
+            <Button size="lg" className="flex w-full space-x-1" type="submit">
+              <span role="img" aria-label="Sparkles">
+                ✨
+              </span>
+              <span>Generate Puzzle</span>
+            </Button>
           </div>
           <div className="w-full">
             <Textarea
-              className="h-full"
+              className="min-h-[140px]"
               placeholder="Add 5 to 30 puzzle answers here, one per line or separated by commas."
             />
           </div>
