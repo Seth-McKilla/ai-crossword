@@ -1,8 +1,11 @@
 "use client"
 
+import {
+  puzzlePropertiesSchema,
+  type PuzzleProperties,
+} from "@/schemas/puzzles"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import * as z from "zod"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -15,21 +18,6 @@ import {
 } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 
-const schema = z.object({
-  readingLevel: z.string(),
-  theme: z.string(),
-  answers: z.string().refine(
-    (value) => {
-      const answers = value
-        .split(/[\s,]+/)
-        .filter((answer) => answer.length > 0)
-      return answers.length >= 5 && answers.length <= 30
-    },
-    { message: "Must have between 5 and 30 answers" }
-  ),
-})
-type Schema = z.infer<typeof schema>
-
 export default function Form() {
   const {
     register,
@@ -38,13 +26,13 @@ export default function Form() {
     setValue,
     clearErrors,
     formState: { errors },
-  } = useForm<Schema>({
-    resolver: zodResolver(schema),
+  } = useForm<PuzzleProperties>({
+    resolver: zodResolver(puzzlePropertiesSchema),
   })
 
-  const onSubmit = async (puzzleProperties: Schema) => {
+  const onSubmit = async (puzzleProperties: PuzzleProperties) => {
     try {
-      const response = await fetch("/puzzle", {
+      const response = await fetch("/puzzles", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
