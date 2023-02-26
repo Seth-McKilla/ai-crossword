@@ -5,6 +5,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { Textarea } from "@/components/ui/textarea"
 
 export default function HomePage() {
   return (
@@ -23,26 +24,42 @@ export default function HomePage() {
           Create a new puzzle
         </h2>
         <div className="flex space-x-2">
-          <Select>
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Select a Difficulty" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="light">Easy</SelectItem>
-              <SelectItem value="dark">Medium</SelectItem>
-              <SelectItem value="system">Hard</SelectItem>
-            </SelectContent>
-          </Select>
-          <Select>
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Select a Theme" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="light">Whimsical</SelectItem>
-              <SelectItem value="dark">Funny</SelectItem>
-              <SelectItem value="system">Dark</SelectItem>
-            </SelectContent>
-          </Select>
+          <div className="flex-col space-y-2">
+            <Select>
+              <SelectTrigger className="w-[200px]">
+                <SelectValue placeholder="Select a Reading Level" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="kindergarten">Kindergarten</SelectItem>
+                <SelectItem value="elementary-school">
+                  Elementary School
+                </SelectItem>
+                <SelectItem value="middle-school">Middle School</SelectItem>
+                <SelectItem value="high-school">High School</SelectItem>
+                <SelectItem value="college">College</SelectItem>
+              </SelectContent>
+            </Select>
+            <Select>
+              <SelectTrigger className="w-[200px]">
+                <SelectValue placeholder="Select a Theme" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="cryptic">Cryptic</SelectItem>
+                <SelectItem value="educational">Educational</SelectItem>
+                <SelectItem value="iambic-pentameter">
+                  Iambic Pentameter
+                </SelectItem>
+                <SelectItem value="noir">Noir</SelectItem>
+                <SelectItem value="whimsical">Whimsical</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="w-full">
+            <Textarea
+              className="h-full"
+              placeholder="Add 5 to 30 puzzle answers here, one per line or separated by commas."
+            />
+          </div>
         </div>
       </section>
     </>
