@@ -1,7 +1,10 @@
 "use client"
 
+import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
+import * as z from "zod"
 
+import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
   Select,
@@ -12,10 +15,34 @@ import {
 } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 
-export default function Form() {
-  const { register, handleSubmit, watch, setValue } = useForm()
+const schema = z.object({
+  readingLevel: z.string(),
+  theme: z.string(),
+  answers: z.string().refine(
+    (value) => {
+      const answers = value
+        .split(/[\s,]+/)
+        .filter((answer) => answer.length > 0)
+      return answers.length >= 5 && answers.length <= 30
+    },
+    { message: "Must have between 5 and 30 answers" }
+  ),
+})
+type Schema = z.infer<typeof schema>
 
-  const onSubmit = (data) => {
+export default function Form() {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    clearErrors,
+    formState: { errors },
+  } = useForm<Schema>({
+    resolver: zodResolver(schema),
+  })
+
+  const onSubmit = (data: Schema) => {
     console.log(data)
   }
 
@@ -24,9 +51,18 @@ export default function Form() {
       <div className="flex-col space-y-2">
         <Select
           value={watch("readingLevel")}
-          onValueChange={(value) => setValue("readingLevel", value)}
+          onValueChange={(value) => {
+            clearErrors("readingLevel")
+            setValue("readingLevel", value)
+          }}
         >
-          <SelectTrigger className="w-[200px]">
+          <SelectTrigger
+            className={cn(
+              "min-w-[200px]",
+              errors.readingLevel &&
+                "border-red-500 focus:border-red-500 focus:ring-red-500 text-red-500"
+            )}
+          >
             <SelectValue placeholder="Select a Reading Level" />
           </SelectTrigger>
           <SelectContent>
@@ -39,10 +75,18 @@ export default function Form() {
         </Select>
         <Select
           value={watch("theme")}
-          onValueChange={(value) => setValue("theme", value)}
-          required
+          onValueChange={(value) => {
+            clearErrors("theme")
+            setValue("theme", value)
+          }}
         >
-          <SelectTrigger className="w-[200px]">
+          <SelectTrigger
+            className={cn(
+              "min-w-[200px]",
+              errors.theme &&
+                "border-red-500 focus:border-red-500 focus:ring-red-500 text-red-500"
+            )}
+          >
             <SelectValue placeholder="Select a Theme" />
           </SelectTrigger>
           <SelectContent>
@@ -63,9 +107,16 @@ export default function Form() {
       <div className="w-full">
         <Textarea
           {...register("answers")}
-          className="min-h-[140px]"
+          className={cn(
+            "min-h-[140px]",
+            errors.answers &&
+              "border-red-500 focus:border-red-500 focus:ring-red-500"
+          )}
           placeholder="Add 5 to 30 puzzle answers here, either one per line or separated by commas."
         />
+        {errors.answers && (
+          <p className="text-red-500 text-sm">{errors.answers.message}</p>
+        )}
       </div>
     </form>
   )

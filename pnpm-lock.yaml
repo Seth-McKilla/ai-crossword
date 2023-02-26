@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@hookform/resolvers': 2.9.11
   '@ianvs/prettier-plugin-sort-imports': 3.7.1
   '@radix-ui/react-select': 1.2.0
   '@types/node': 18.14.1
@@ -24,8 +25,10 @@ specifiers:
   tailwindcss: 3.2.7
   tailwindcss-animate: 1.0.5
   typescript: 4.9.5
+  zod: 3.20.6
 
 dependencies:
+  '@hookform/resolvers': 2.9.11_react-hook-form@7.43.2
   '@radix-ui/react-select': 1.2.0_zula6vjvt3wdocc4mwcxqa6nzi
   '@types/node': 18.14.1
   '@types/react': 18.0.28
@@ -43,6 +46,7 @@ dependencies:
   tailwind-merge: 1.10.0
   tailwindcss-animate: 1.0.5_tailwindcss@3.2.7
   typescript: 4.9.5
+  zod: 3.20.6
 
 devDependencies:
   '@ianvs/prettier-plugin-sort-imports': 3.7.1_prettier@2.8.4
@@ -308,6 +312,14 @@ packages:
       use-isomorphic-layout-effect: 1.1.2_pmekkgnqduwlme35zpnqhenc34
     transitivePeerDependencies:
       - '@types/react'
+    dev: false
+
+  /@hookform/resolvers/2.9.11_react-hook-form@7.43.2:
+    resolution: {integrity: sha512-bA3aZ79UgcHj7tFV7RlgThzwSSHZgvfbt2wprldRkYBcMopdMvHyO17Wwp/twcJasNFischFfS7oz8Katz8DdQ==}
+    peerDependencies:
+      react-hook-form: ^7.0.0
+    dependencies:
+      react-hook-form: 7.43.2_react@18.2.0
     dev: false
 
   /@humanwhocodes/config-array/0.11.8:
@@ -3358,4 +3370,8 @@ packages:
   /yocto-queue/0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
+    dev: false
+
+  /zod/3.20.6:
+    resolution: {integrity: sha512-oyu0m54SGCtzh6EClBVqDDlAYRz4jrVtKwQ7ZnsEmMI9HnzuZFj8QFwAY1M5uniIYACdGvv0PBWPF2kO0aNofA==}
     dev: false

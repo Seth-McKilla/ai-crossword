@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@hookform/resolvers": "2.9.11",
     "@radix-ui/react-select": "1.2.0",
     "@types/node": "18.14.1",
     "@types/react": "18.0.28",
@@ -25,7 +26,8 @@
     "react-hook-form": "7.43.2",
     "tailwind-merge": "1.10.0",
     "tailwindcss-animate": "1.0.5",
-    "typescript": "4.9.5"
+    "typescript": "4.9.5",
+    "zod": "3.20.6"
   },
   "devDependencies": {
     "@ianvs/prettier-plugin-sort-imports": "3.7.1",
