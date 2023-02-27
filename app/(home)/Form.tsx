@@ -39,10 +39,14 @@ export default function Form() {
         },
         body: JSON.stringify(puzzleProperties),
       })
-      const { data } = await response.json()
+      const { data, error } = await response.json()
+      if (error) {
+        throw new Error(error)
+      }
+
       console.log(data)
     } catch (error: any) {
-      console.error(error)
+      console.error(error.message)
     }
   }
 
