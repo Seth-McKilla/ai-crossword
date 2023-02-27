@@ -1,5 +1,6 @@
 "use client"
 
+import { useState } from "react"
 import {
   puzzlePropertiesSchema,
   type PuzzleProperties,
@@ -7,8 +8,10 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 
+import { PuzzleClues } from "@/lib/openai"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
+import { LoadingOverlay } from "@/components/ui/loading"
 import {
   Select,
   SelectContent,
@@ -19,6 +22,10 @@ import {
 import { Textarea } from "@/components/ui/textarea"
 
 export default function Form() {
+  const [puzzleClues, setPuzzleClues] = useState<PuzzleClues | null>(null)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
   const {
     register,
     handleSubmit,
@@ -31,6 +38,8 @@ export default function Form() {
   })
 
   const onSubmit = async (puzzleProperties: PuzzleProperties) => {
+    setError(null)
+    setLoading(true)
     try {
       const response = await fetch("/puzzles", {
         method: "POST",
@@ -44,15 +53,17 @@ export default function Form() {
         throw new Error(error)
       }
 
-      console.log(data)
+      setPuzzleClues(data)
     } catch (error: any) {
-      console.error(error.message)
+      setError(error.message)
     }
+    return setLoading(false)
   }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex space-x-2">
       <div className="flex-col space-y-2">
+        {loading && <LoadingOverlay />}
         <Select
           value={watch("readingLevel")}
           onValueChange={(value) => {
