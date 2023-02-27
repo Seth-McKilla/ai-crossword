@@ -26,7 +26,7 @@ export const createPuzzleClues = async ({
     try {
       const response = await openai.createCompletion({
         model: "text-davinci-003",
-        prompt: `Generate a crossword puzzle clue that doesn't contain the word ${answer} with a ${theme} theme at the ${readingLevel} reading level whose answer is ${answer}.`,
+        prompt: `Generate a crossword clue with a ${theme} theme at the ${readingLevel} reading level whose answer is ${answer}. Don't include the ${answer} in the clue and don't prefix or suffix the clue with clue or answer, respectively.`,
         temperature: 0,
         max_tokens: 50,
       })
@@ -37,7 +37,6 @@ export const createPuzzleClues = async ({
     }
   }
 
-  fs.writeFileSync("./puzzleClues.json", JSON.stringify(puzzleClues, null, 2))
   return puzzleClues
 }
 export type PuzzleClues = Awaited<ReturnType<typeof createPuzzleClues>>

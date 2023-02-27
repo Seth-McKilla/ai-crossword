@@ -20,6 +20,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
+import CluesList from "./CluesList"
 
 export default function Form() {
   const [puzzleClues, setPuzzleClues] = useState<PuzzleClues | null>(null)
@@ -58,6 +59,10 @@ export default function Form() {
       setApiError(error.message)
     }
     return setLoading(false)
+  }
+
+  if (puzzleClues) {
+    return <CluesList puzzleClues={puzzleClues} />
   }
 
   return (
