@@ -1,6 +1,5 @@
 import { PuzzleProperties } from "@/schemas/puzzles"
 import { Configuration, OpenAIApi } from "openai"
-import { fromTheme } from "tailwind-merge"
 
 import { stringListToArray, toSpaceCase } from "@/lib/utils"
 
