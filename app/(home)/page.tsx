@@ -1,4 +1,4 @@
-import Form from "./Form"
+import Puzzle from "./Puzzle"
 
 export default function HomePage() {
   return (
@@ -13,10 +13,7 @@ export default function HomePage() {
         </p>
       </section>
       <section className="mt-8">
-        <h2 className="text-2xl font-extrabold leading-tight tracking-tighter sm:text-2xl md:text-4xl lg:text-5xl mb-4">
-          Create a new puzzle
-        </h2>
-        <Form />
+        <Puzzle />
       </section>
     </>
   )
