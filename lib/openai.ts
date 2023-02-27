@@ -1,6 +1,8 @@
-import fs from "fs"
 import { PuzzleProperties } from "@/schemas/puzzles"
 import { Configuration, OpenAIApi } from "openai"
+import { fromTheme } from "tailwind-merge"
+
+import { stringListToArray, toSpaceCase } from "@/lib/utils"
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY!,
@@ -10,21 +12,17 @@ const openai = new OpenAIApi(configuration)
 export type PuzzleClue = { answer: string; clue: string }
 
 export const createPuzzleClues = async ({
-  readingLevel,
-  theme,
-  answers,
+  readingLevel: unformattedReadingLevel,
+  theme: unformattedTheme,
+  answers: unformattedAnswers,
 }: PuzzleProperties) => {
-  const answersArray = answers
-    .replace(/,/g, " ")
-    .replace(/\n/g, " ")
-    .split(" ")
-    .filter((answer) => {
-      return answer.trim().length > 0
-    })
+  const readingLevel = toSpaceCase(unformattedReadingLevel)
+  const theme = toSpaceCase(unformattedTheme)
+  const answers = stringListToArray(unformattedAnswers)
 
   const puzzleClues = [] as PuzzleClue[]
 
-  for (const answer of answersArray) {
+  for (const answer of answers) {
     try {
       const response = await openai.createCompletion({
         model: "text-davinci-003",
