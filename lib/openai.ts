@@ -1,7 +1,11 @@
 import { PuzzleProperties } from "@/schemas/puzzles"
 import { Configuration, OpenAIApi } from "openai"
 
-import { stringListToArray, toSpaceCase } from "@/lib/utils"
+import {
+  stringListToArray,
+  toSpaceCase,
+  toUpperCaseNoSpaces,
+} from "@/lib/utils"
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY!,
@@ -30,7 +34,10 @@ export const createPuzzleClues = async ({
         max_tokens: 50,
       })
       const puzzleClue = response.data.choices[0].text
-      puzzleClues.push({ answer, clue: puzzleClue })
+      puzzleClues.push({
+        answer: toUpperCaseNoSpaces(answer),
+        clue: puzzleClue,
+      })
     } catch (error: any) {
       throw new Error(error)
     }

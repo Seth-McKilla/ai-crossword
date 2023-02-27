@@ -12,6 +12,10 @@ export const toSpaceCase = (str: string) => {
     .toLowerCase()
 }
 
+export const toUpperCaseNoSpaces = (str: string) => {
+  return str.replace(/\s/g, "").toUpperCase()
+}
+
 export const stringListToArray = (str: string) => {
   return str
     .replace(/\n/g, ",")
