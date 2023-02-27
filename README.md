@@ -22,11 +22,13 @@ This document serves as a guide to get your local development environment up and
 
 ## Prerequisites
 
-### 1. [Node.js](https://nodejs.org/en/download/) (LTS version)
+### 1. An IDE of your choice, [VSCode](https://code.visualstudio.com/docs) is recommended
 
-### 2. A package manager, [pnpm](https://pnpm.io/installation) is highly recommended!
+### 2. [Node.js](https://nodejs.org/en/download/) (LTS version)
 
-### 3. An [OpenAI API key](https://beta.openai.com/docs/developer-quickstart/api-key)
+### 3. A package manager, [pnpm](https://pnpm.io/installation) is recommended
+
+### 4. An [OpenAI API key](https://openai.com/api/)
 
 <br />
 
@@ -40,10 +42,10 @@ cd ai-crossword
 pnpm install
 ```
 
-### 2. Rename the `.env.example` file to `.env.local` and add your OpenAI API key:
+### 2. Rename the `.env.example` file to `.env` and add your OpenAI API key:
 
 ```env
-mv .env.example .env.local
+mv .env.example .env
 ```
 
 ### 3. Run the local development environment:
