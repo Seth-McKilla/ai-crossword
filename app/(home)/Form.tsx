@@ -24,7 +24,7 @@ import { Textarea } from "@/components/ui/textarea"
 export default function Form() {
   const [puzzleClues, setPuzzleClues] = useState<PuzzleClues | null>(null)
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const [apiError, setApiError] = useState<string | null>(null)
 
   const {
     register,
@@ -38,7 +38,7 @@ export default function Form() {
   })
 
   const onSubmit = async (puzzleProperties: PuzzleProperties) => {
-    setError(null)
+    setApiError(null)
     setLoading(true)
     try {
       const response = await fetch("/puzzles", {
@@ -55,7 +55,7 @@ export default function Form() {
 
       setPuzzleClues(data)
     } catch (error: any) {
-      setError(error.message)
+      setApiError(error.message)
     }
     return setLoading(false)
   }
@@ -129,8 +129,10 @@ export default function Form() {
           )}
           placeholder="Add 5 to 30 puzzle answers here, either one per line or separated by commas."
         />
-        {errors.answers && (
-          <p className="text-red-500 text-sm">{errors.answers.message}</p>
+        {(errors?.answers || apiError) && (
+          <p className="text-red-500 text-sm">
+            {errors?.answers?.message || apiError}
+          </p>
         )}
       </div>
     </form>
