@@ -1,10 +1,26 @@
-import type { PuzzleClues } from "@/lib/openai"
+import type { PuzzleClue } from "@/lib/openai"
 
 interface ClueListProps {
-  puzzleClues: PuzzleClues
+  puzzleClues: PuzzleClue[]
 }
 
 export default function CluesList({ puzzleClues }: ClueListProps) {
+  const sortedPuzzleClues = puzzleClues.reduce(
+    (acc, curr, idx) => {
+      if (idx % 2 === 0) {
+        acc.push({
+          across: curr,
+          down: puzzleClues[idx + 1],
+        })
+      }
+      return acc
+    },
+    [] as {
+      across: PuzzleClue
+      down: PuzzleClue
+    }[]
+  )
+
   return (
     <div className="my-6 w-full overflow-y-auto">
       <table className="w-full">
@@ -19,14 +35,23 @@ export default function CluesList({ puzzleClues }: ClueListProps) {
           </tr>
         </thead>
         <tbody>
-          {puzzleClues.map((clue, idx) => (
+          {sortedPuzzleClues.map(({ across, down }, idx) => (
             <tr
               key={idx}
               className="m-0 border-t border-slate-200 p-0 even:bg-slate-100 dark:border-slate-700 dark:even:bg-slate-800"
             >
               <td className="border border-slate-200 px-4 py-2 text-left dark:border-slate-700 [&[align=center]]:text-center [&[align=right]]:text-right">
-                {`${idx + 1}. ${clue}`}
+                {`${idx * 2 + 1}. ${
+                  across?.clue
+                } (${across?.answer?.toUpperCase()})`}
               </td>
+              {down && (
+                <td className="border border-slate-200 px-4 py-2 text-left dark:border-slate-700 [&[align=center]]:text-center [&[align=right]]:text-right">
+                  {`${idx * 2 + 2}. ${
+                    down?.clue
+                  } (${down?.answer?.toUpperCase()})`}
+                </td>
+              )}
             </tr>
           ))}
         </tbody>

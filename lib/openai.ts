@@ -7,6 +7,8 @@ const configuration = new Configuration({
 })
 const openai = new OpenAIApi(configuration)
 
+export type PuzzleClue = { answer: string; clue: string }
+
 export const createPuzzleClues = async ({
   readingLevel,
   theme,
@@ -20,7 +22,7 @@ export const createPuzzleClues = async ({
       return answer.trim().length > 0
     })
 
-  const puzzleClues = [] as { answer: string; clue: string }[]
+  const puzzleClues = [] as PuzzleClue[]
 
   for (const answer of answersArray) {
     try {
@@ -39,4 +41,3 @@ export const createPuzzleClues = async ({
 
   return puzzleClues
 }
-export type PuzzleClues = Awaited<ReturnType<typeof createPuzzleClues>>

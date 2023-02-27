@@ -8,7 +8,7 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 
-import { PuzzleClues } from "@/lib/openai"
+import type { PuzzleClue } from "@/lib/openai"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { LoadingOverlay } from "@/components/ui/loading"
@@ -23,7 +23,7 @@ import { Textarea } from "@/components/ui/textarea"
 import CluesList from "./CluesList"
 
 export default function Form() {
-  const [puzzleClues, setPuzzleClues] = useState<PuzzleClues | null>(null)
+  const [puzzleClues, setPuzzleClues] = useState<PuzzleClue[] | null>(null)
   const [loading, setLoading] = useState(false)
   const [apiError, setApiError] = useState<string | null>(null)
 
