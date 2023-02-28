@@ -140,7 +140,8 @@ export default function Form() {
               errors.answers &&
                 "border-red-500 focus:border-red-500 focus:ring-red-500"
             )}
-            placeholder="Add 5 to 30 puzzle answers here, either one per line or separated by commas."
+            placeholder="Add 5 to 30 puzzle answers here (max 20 characters per answer), either one per line or separated by commas."
+            spellCheck="true"
           />
           {(errors?.answers || apiError) && (
             <p className="text-red-500 text-sm">
