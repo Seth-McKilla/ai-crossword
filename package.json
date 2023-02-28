@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "2.9.11",
+    "@jaredreisinger/react-crossword": "5.2.0",
     "@radix-ui/react-select": "1.2.0",
     "@types/node": "18.14.1",
     "@types/react": "18.0.28",
