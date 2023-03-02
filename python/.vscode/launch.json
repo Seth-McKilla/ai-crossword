@@ -1,0 +1,14 @@
+{
+    "version": "0.1.0",
+    "configurations":[
+        {
+            "name": "test-crossword",
+            "cwd": "${workspaceFolder}",
+            "request": "launch",
+            "type": "python",
+            "program": "${workspaceFolder}/main.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+        }
+    ]
+}
