@@ -5,6 +5,7 @@ import { stringListToArray } from "@/lib/utils"
 export const puzzlePropertiesSchema = z.object({
   readingLevel: z.string(),
   theme: z.string(),
+  size: z.number().optional(),
   answers: z
     .string()
     .refine(
