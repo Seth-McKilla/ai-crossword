@@ -6,7 +6,7 @@
             "cwd": "${workspaceFolder}",
             "request": "launch",
             "type": "python",
-            "program": "${workspaceFolder}/main.py",
+            "program": "${workspaceFolder}/python/main.py",
             "console": "integratedTerminal",
             "justMyCode": true,
         }
