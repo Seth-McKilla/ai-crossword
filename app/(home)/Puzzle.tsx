@@ -6,6 +6,7 @@ import {
   type PuzzleProperties,
 } from "@/schemas/puzzles"
 import { zodResolver } from "@hookform/resolvers/zod"
+import Crossword from "@jaredreisinger/react-crossword"
 import { useForm } from "react-hook-form"
 
 import type { PuzzleClue } from "@/lib/openai"
@@ -23,7 +24,8 @@ import { Textarea } from "@/components/ui/textarea"
 import CluesList from "./CluesList"
 
 export default function Form() {
-  const [puzzleClues, setPuzzleClues] = useState<PuzzleClue[] | null>(null)
+  // TODO: Correctly type this (move api function to lib and infer return type)
+  const [puzzleClues, setPuzzleClues] = useState<any>(null)
   const [loading, setLoading] = useState(false)
   const [apiError, setApiError] = useState<string | null>(null)
 
@@ -62,7 +64,14 @@ export default function Form() {
   }
 
   if (puzzleClues) {
-    return <CluesList puzzleClues={puzzleClues} />
+    return (
+      <Crossword
+        data={puzzleClues}
+        theme={{
+          gridBackground: "#fff",
+        }}
+      />
+    )
   }
 
   return (
