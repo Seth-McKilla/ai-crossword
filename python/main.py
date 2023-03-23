@@ -1,8 +1,9 @@
 import random
 import json
 import os
+import argparse
 
-def main(gridLength=20,answerList=['Elephant','Buffalo','Colorado','Panda','Bear','Engineer','Overwatch','Valheim','Jeopardy']):
+def main():
     # INPUTS: 1.  gridLength (int)          -> Crossword Puzzle grid is size x N (square)
     #         2.  answerList (list of str)  -> List of crossword answers
     #
@@ -13,8 +14,16 @@ def main(gridLength=20,answerList=['Elephant','Buffalo','Colorado','Panda','Bear
     # Input validation:
     # 1. Assert that the supplied gridLength is an integer. If assertion passes, assign int() to protect against float issues
     # 2. Assert that the supplied answerList is a list composed of strings. Validation should be done external to Python to ensure no non-alphanumeric strings show up here (e.g., '2')
-    assert float(gridLength) and gridLength.__floor__() == gridLength, f"The main() 'gridLength' argument must be an integer. User-supplied value: {gridLength}"
-    gridLength = int(gridLength)
+
+    parser = argparse.ArgumentParser(prog='ai-crossword-generator')
+    parser.add_argument("--gridLength",type=int,required=True)
+    parser.add_argument("--answerList", action='append',help='List of crossword answers supplied by command line argument.',required=True)
+
+    args = parser.parse_args()
+    assert float(args.gridLength) and args.gridLength.__floor__() == args.gridLength, f"The main() 'gridLength' argument must be an integer. User-supplied value: {args.gridLength}"
+    gridLength = int(args.gridLength)
+
+    answerList = args.answerList[0].split(' ')
     assert isinstance(answerList,list) and all([isinstance(element,str) for element in answerList]), f"The main() 'answerList' argument must be a Python list composed of string elements. User-supplied value: {answerList}"
 
     # Make call to generate the 'crossword' (list) and 'indexDict' (used for .json output)
@@ -45,11 +54,6 @@ def main(gridLength=20,answerList=['Elephant','Buffalo','Colorado','Panda','Bear
     with open(os.path.abspath(os.path.join(outputDirectory,'crossword_glossary.json')),"w") as outfile:
         outfile.write(json_output)
 
-    # DEBUG UTILS
-    #print(json_string)
-    # Send out the glossary with json
-    #for row in crossword:
-    #    print(' '.join(row))
     
 def generate_crossword(size=20,answerBank=None):
     answerBank = [element.upper() for element in answerBank]
@@ -115,7 +119,7 @@ def word_can_be_placed(size, word, grid, rowStart, colStart, is_horizontal):
             if letterIdx == 0 and colStart - 1 >= 0:
                 if grid[rowStart][colStart - 1] not in [' ']:
                     return False
-            elif letterIdx == len(word)-1 and colStart + letterIdx + 1 <= size:
+            elif letterIdx == len(word)-1 and colStart + letterIdx + 1 in range(size):
                 if grid[rowStart][colStart + letterIdx + 1] not in [' ']:
                     return False
 
@@ -139,8 +143,8 @@ def word_can_be_placed(size, word, grid, rowStart, colStart, is_horizontal):
             if letterIdx == 0 and rowStart - 1 >= 0:
                 if grid[rowStart - 1][colStart] not in [' ']:
                     return False
-            elif letterIdx == len(word)-1 and rowStart + letterIdx + 1 <= size:
-                if grid[rowStart+ letterIdx + 1][colStart] not in [' ']:
+            elif letterIdx == len(word)-1 and rowStart + letterIdx + 1 in range(size):
+                if grid[rowStart + letterIdx + 1][colStart] not in [' ']:
                     return False
 
             # Ensure each letter is placed on an empty or equal-letter square

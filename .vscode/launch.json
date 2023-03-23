@@ -9,6 +9,7 @@
             "program": "${workspaceFolder}/python/main.py",
             "console": "integratedTerminal",
             "justMyCode": true,
+            "args": ["--gridLength=20", "--answerList=VALHEIM TEST VACATION CHESS"]
         }
     ]
 }
