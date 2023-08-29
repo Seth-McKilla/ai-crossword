@@ -1,0 +1,15 @@
+{
+    "version": "0.1.0",
+    "configurations":[
+        {
+            "name": "test-crossword",
+            "cwd": "${workspaceFolder}",
+            "request": "launch",
+            "type": "python",
+            "program": "${workspaceFolder}/python/main.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": ["--gridLength=20", "--answerList=VALHEIM TEST VACATION CHESS"]
+        }
+    ]
+}

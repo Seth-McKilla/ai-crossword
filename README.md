@@ -28,7 +28,9 @@ This document serves as a guide to get your local development environment up and
 
 ### 3. A package manager, [pnpm](https://pnpm.io/installation) is recommended
 
-### 4. An [OpenAI API key](https://openai.com/api/)
+### 4. The [Vercel CLI](https://vercel.com/download) (for testing python api locally)
+
+### 5. An [OpenAI API key](https://openai.com/api/)
 
 <br />
 
@@ -51,7 +53,7 @@ mv .env.example .env
 ### 3. Run the local development environment:
 
 ```bash
-pnpm dev
+vc dev
 ```
 
 Navigate to [http://localhost:3000](http://localhost:3000) to see the app running in your browser.
